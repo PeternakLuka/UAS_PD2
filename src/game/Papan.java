@@ -35,14 +35,14 @@ public class Papan extends JPanel implements ActionListener {
     static boolean bawah = false;
     boolean mulai = true;
     LinkedList<Image> ll = new LinkedList<>();
-    int uk = 10;
+    int uk = 12;
     int x[] = new int[300];
     int y[] = new int[300];
     Timer timer;
 
     public Papan() {
         addKeyListener(new Keyboard());
-        setBackground(Color.white);
+        setBackground(Color.black);
         setFocusable(true);
         setPreferredSize(new Dimension(300, 400));
         gmbr();
@@ -70,18 +70,18 @@ public class Papan extends JPanel implements ActionListener {
     private void skor(Graphics g) {
         String msg = "Skor : " + String.valueOf(ll.size());
         Font small = new Font("Helvetica", Font.BOLD, 14);
-        g.setColor(Color.black);
+        g.setColor(Color.white);
         g.setFont(small);
         g.drawString(msg, 1, 10);
     }
 
     private void gmbr() {
-        ImageIcon ihead = new ImageIcon("src/resources/head.png");
+        ImageIcon ihead = new ImageIcon("src/resources/kepala.png");
         ll.addFirst(ihead.getImage());
-        ImageIcon itail = new ImageIcon("src/resources/dot.png");
+        ImageIcon itail = new ImageIcon("src/resources/badan.png");
         tail = itail.getImage();
         ll.addLast(tail);
-        ImageIcon iumpan = new ImageIcon("src/resources/apple" + img + ".png");
+        ImageIcon iumpan = new ImageIcon("src/resources/makan" + img + ".png");
         umpan = iumpan.getImage();
         buatumpan();
     }
@@ -127,8 +127,8 @@ public class Papan extends JPanel implements ActionListener {
             public void actionPerformed(ActionEvent ae) {
                 if(!ll.isEmpty()){
                     Random rand = new Random();
-                    img = rand.nextInt(2) + 1;
-                    ImageIcon iumpan = new ImageIcon("src/resources/apple" + img + ".png");
+                    img = rand.nextInt(5) + 1;
+                    ImageIcon iumpan = new ImageIcon("src/resources/makan" + img + ".png");
                     umpan = iumpan.getImage();
                     acakumpan();
                 }
@@ -137,6 +137,7 @@ public class Papan extends JPanel implements ActionListener {
         timeer.start();
     }
     
+    /*
     public void nyawa(){
         Timer timeer = new Timer(10000, new ActionListener() {
             @Override
@@ -148,15 +149,16 @@ public class Papan extends JPanel implements ActionListener {
         });
         timeer.start();
     }
+    */
 
     private void makanumpan() {
         if (x[0] == umpan_x && y[0] == umpan_y) {
-            if (img == 1) {
+            if (img != 2) {
                 ll.addLast(tail);
-            } else if (img == 2) {
+            } else {
                 ll.removeLast();
             }
-            nyawa();
+            //nyawa();
             acakumpan();
         }
         if(ll.isEmpty()){
